@@ -3,15 +3,17 @@ let redis = new Redis(6379, 'redis');
 
 async function routes (fastify, options) {
   // GET /alive
-  fastify.get('/alive', async (req, res) => {
-    res.send('OK');
+  fastify.get('/alive', async (request, reply) => {
+    reply.code(200);
+    reply.send('OK');
   });
 
   // GET /ready
-  fastify.get('/ready', async (req, res) => {
+  fastify.get('/ready', async (request, reply) => {
     await redis.ping();
 
-    res.send('OK');
+    reply.code(200);
+    reply.send('OK');
   });
 }
 
